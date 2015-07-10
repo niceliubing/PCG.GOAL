@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/AppRoot/Stylesheets/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <div class="pull-left" style="margin-right: 10px;">
+                    <img src="~/AppRoot/Images/goalDark.png" />
+                </div>
+                <a class="navbar-brand" href="/" style="margin-top: 8px;">Web Service</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" style="margin-top: 8px;">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Admin", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Logout", "Logout", "Authentication", new { area = "" }, null)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.base64.js"></script>
+    <script>
+        if (!window.btoa) window.btoa = $.base64.btoa;
+        if (!window.atob) window.atob = $.base64.atob;
+
+    </script>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer></footer>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

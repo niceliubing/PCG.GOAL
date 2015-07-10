@@ -1,0 +1,116 @@
+﻿
+
+<div class="container-fluid" style="margin-top: 20px;">
+
+    <div class="row">
+        <div class="panel panel-info" style="margin-top: 20px;">
+            <div class="panel-heading">OAuth2 Authentication</div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-sm-6 ">
+                            <div class="form-group form-group-sm">
+                                <label for="userName" class="col-md-4 control-label">Username</label>
+                                <div class=" col-md-8">
+                                    <input type="text" class="form-control" id="userName" placeholder="Username" value="admin">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="form-group form-group-sm">
+                                <label for="password" class="col-md-4 control-label">Password</label>
+                                <div class=" col-md-8">
+                                    <input type="text" class="form-control" id="password" placeholder="Password" value="admin">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 ">
+                            <div class="form-group form-group-sm">
+                                <label for="clientCode" class="col-md-4 control-label">Client Code</label>
+                                <div class=" col-md-8">
+                                    <input type="text" class="form-control" id="clientCode" placeholder="Client Code" value="goalview">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="form-group form-group-sm">
+                                <label for="clientSecret" class="col-md-4 control-label">Client Secret</label>
+                                <div class=" col-md-8">
+                                    <input type="text" class="form-control" id="clientSecret" placeholder="Client Secret" value="goalview">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 ">
+                            <div class="form-group form-group-sm">
+                                <label for="baseUrl" class="col-md-4 control-label">Base Url</label>
+                                <div class=" col-md-8">
+                                    <input type="text" class="form-control" id="baseUrl" placeholder="Base Url">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="form-group form-group-sm">
+                                <label for="tokenEndpoint" class="col-md-4 control-label">Token Endpoint</label>
+                                <div class=" col-md-8">
+                                    <input type="text" class="form-control" id="tokenEndpoint" placeholder="Token Endpoint" value="/token">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group form-group-sm">
+                                <label for="serviceEndpoint" class="col-md-2 control-label">Service Endpoint</label>
+                                <div class="col-md-10 ">
+                                    <input type="text" class="form-control" style="max-width: 550px;" id="serviceEndpoint"
+                                           placeholder="Service Endpoint"
+                                           value="/api/rethink/StudentByIdentity?firstname=Brooklin&lastname=Altis&dob=20080605">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" id="btnGetToken">Test Token</a>
+        <a class="btn btn-info" id="btnRefreshToken">Refresh Token</a>
+        <a class="btn btn-success" id="btnCallService">Test Service</a>
+        <div style="display: inline-block; margin-left: 20px;">
+            <div id="imgLoading">
+                <img src="~/AppRoot/Images/ajax_loader_blue_32.gif" />
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="panel panel-warning" style="margin-top: 20px;">
+            <div class="panel-heading">Access Token</div>
+            <div class="panel-body">
+                <div id="token"  style="overflow-x: auto; max-height: 100px;"></div>
+            </div>
+        </div>
+        <div class="panel panel-success" style="margin-top: 20px;">
+            <div class="panel-heading">Response Data</div>
+            <div class="panel-body">
+                <div id="responseData" style="overflow-x: auto; max-height: 200px;"></div>
+            </div>
+        </div>
+        <div class="panel panel-danger" style="margin-top: 20px;">
+            <div class="panel-heading">Error Message</div>
+            <div class="panel-body">
+                <div id="errorMessage" style="overflow-x: auto; max-height: 100px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/AppRoot/ViewScript/Home/serviceTest.js"></script>

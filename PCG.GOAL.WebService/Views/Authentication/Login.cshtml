@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Goal Web Service</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/AppRoot/Stylesheets/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/AppRoot/ViewScript/Authentication/login.js"></script>
+</head>
+<body>
+
+    <div class="authentication">
+
+        <div class=" text-center login-screen">
+            <div class="middle-box">
+                <div>
+
+                    <h1 class="logo-name">
+                        Welcome to <img src="~/AppRoot/Images/goalDark.png" />
+                    </h1>
+
+                </div>
+                <h3>Web Service</h3>
+
+                <p>Login with Token-Based Authentication</p>
+
+                <form class="m-t" role="form" name="formLogin" id="formLogin" novalidate>
+
+                    @*@Html.AntiForgeryToken()*@
+                    <div class="form-group form-group-sm" form-input>
+                        <input type="text" id="txtUsername" name="Username" minlength="4" class="form-control"
+                               placeholder="Username" required="">
+                    </div>
+                    <div class="form-group form-group-sm" form-input>
+                        <input type="password" id="txtPassword" name="Password" minlength="4" class="form-control"
+                               placeholder="Password" required="">
+                    </div>
+                    <button type="submit" id="btnLogin" class="btn btn-primary block full-width m-b">Login</button>
+
+                    <!-- <div class="login-hint">
+                        <div>
+                            For regular user, input
+                            <span class="login-name">user/user</span>
+                        </div>
+                        <div>
+                            For administrator, input
+                            <span class="login-name">admin/admin</span>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <small>Forgot password?</small>
+                    </a>
+
+                    <p class="text-muted text-center">
+                        <small>Do not have an account?</small>
+                    </p>
+                    <a class="btn btn-sm btn-white btn-block">Create an account</a>-->
+                </form>
+                <p class="m-t">
+                    By PCG Education &copy; 2015
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
