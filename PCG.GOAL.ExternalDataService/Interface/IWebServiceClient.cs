@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PCG.GOAL.Common.Models;
 using PCG.GOAL.Common.Security;
-using PCG.GOAL.ExternalDataService.Model;
+using PCG.GOAL.Common.WebAccess;
 
 namespace PCG.GOAL.ExternalDataService.Interface
 {

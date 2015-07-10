@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace PCG.GOAL.Common.Models
+namespace PCG.GOAL.Common.WebAccess
 {
     public class ResponseData<T>
     {

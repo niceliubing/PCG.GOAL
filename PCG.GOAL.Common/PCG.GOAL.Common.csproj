@@ -52,9 +52,10 @@
     <Compile Include="Models\LessonMasteryCriteria.cs" />
     <Compile Include="Models\LessonInfo.cs" />
     <Compile Include="Models\LessonObjective.cs" />
-    <Compile Include="Models\ResponseData.cs" />
+    <Compile Include="WebAccess\ResponseData.cs" />
+    <Compile Include="WebAccess\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\Credentials.cs" />
+    <Compile Include="WebAccess\Credentials.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

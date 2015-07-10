@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using PCG.GOAL.Common.Models;
+using PCG.GOAL.Common.WebAccess;
 using PCG.GOAL.ExternalDataService.Interface;
 using PCG.GOAL.WebService.Security;
 

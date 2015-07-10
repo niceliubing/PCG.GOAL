@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PCG.GOAL.Common.Models;
 using PCG.GOAL.Common.Security;
+using PCG.GOAL.Common.WebAccess;
 
 namespace PCG.GOAL.ExternalDataService.Interface
 {

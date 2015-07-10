@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Threading.Tasks;
 using PCG.GOAL.Common.Models;
 using PCG.GOAL.Common.Security;
+using PCG.GOAL.Common.WebAccess;
 using PCG.GOAL.ExternalDataService.Interface;
 
 namespace PCG.GOAL.ExternalDataService.Service

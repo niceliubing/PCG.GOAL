@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PCG.GOAL.Common.Models;
 using PCG.GOAL.Common.Security;
+using PCG.GOAL.Common.WebAccess;
 using PCG.GOAL.ExternalDataService.Interface;
 using PCG.GOAL.ExternalDataService.Model;
-
 
 namespace PCG.GOAL.ExternalDataService.Service
 {
