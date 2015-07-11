@@ -11,7 +11,7 @@ namespace PCG.GOAL.WebService.Security
     {
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
-            actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Forbidden);
+            actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
             actionContext.Response.ReasonPhrase = "Unauthorized Web Service Request";
 
             base.HandleUnauthorizedRequest(actionContext);

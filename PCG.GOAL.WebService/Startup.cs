@@ -29,7 +29,7 @@ namespace PCG.GOAL.WebService
                 Provider = new GoalOAuthProvider(),
                 //AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 RefreshTokenProvider = new GoalRefreshTokenProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(40),//TimeSpan.FromDays(1),
                 AllowInsecureHttp = true
             };
 
