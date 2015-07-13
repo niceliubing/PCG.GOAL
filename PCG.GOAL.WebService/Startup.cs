@@ -21,15 +21,13 @@ namespace PCG.GOAL.WebService
 
         public void Configuration(IAppBuilder app)
         {
-
-
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new GoalOAuthProvider(),
                 //AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 RefreshTokenProvider = new GoalRefreshTokenProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(40),//TimeSpan.FromDays(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 AllowInsecureHttp = true
             };
 
@@ -42,8 +40,6 @@ namespace PCG.GOAL.WebService
                 LoginPath = new PathString("/Authentication/Login")
 
             });
-            
-            //app.UseNinjectMiddleware(NinjectConfig.CreateKernel).UseNinjectWebApi(WebApiConfig.WebApiConfiguration());
         }
 
     }

@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using PCG.GOAL.Common.Models;
+using PCG.GOAL.Common.Security;
 using PCG.GOAL.Common.WebAccess;
 
 namespace PCG.GOAL.WebService.Test.WebClient
@@ -15,48 +16,51 @@ namespace PCG.GOAL.WebService.Test.WebClient
     {
         const string BaseUrl = "http://goalservice.azurewebsites.net";
         const string TokenUrl = BaseUrl + "/token";
-        const string ServiceEndpoint = "/api/rethink/StudentByIdentity?firstname=Brooklin&lastname=Altis&dob=20080605";
-        private const string Url = BaseUrl + ServiceEndpoint;
+        const string EndpointAllStudents = "/api/rethink/Student";
+        const string EndpointStudentByIdentity = "/api/rethink/StudentByIdentity?firstname=Brooklin&lastname=Altis&dob=20080605";
+        const string EndpointStudentByStatetestnumber = "/api/rethink/StudentByStatetestnumber?statetestnumber=2724167171";
 
-        const string ClientId = "goalview";
-        const string ClientSecret = "goalview";
-        private string _token = "";
-        
+        private Credentials _credentials;
+        private Token _token;
+
 
         [TestInitialize]
         public void TestInitilaize()
         {
-            _token = GetToken().Access_Token;
+            var oauthAccess = new OAuthAccess();
+            _credentials = oauthAccess.GetCredentials();
+            _token = GetToken();
         }
 
         [TestMethod]
-        public void CanGetAllStudents()
+        public void CanGetStudentByIdentity()
         {
-            // web client
-            var client = new System.Net.WebClient();
-            client.Headers["Content-type"] = "application/json";
-            client.Headers[HttpRequestHeader.Authorization] = string.Format("Bearer {0}", _token);
-
             try
             {
-
-                // invoke the REST method
-                var jsonData = client.DownloadString(Url);
-
-                var responseData = JsonConvert.DeserializeObject<ResponseData<ChildInfo>>(jsonData);
+                var responseData = GetStudentByIdentity();
 
                 Assert.IsNotNull(responseData);
                 Assert.IsTrue(responseData.Done);
                 Assert.IsInstanceOfType(responseData.Data, typeof(IEnumerable<ChildInfo>));
 
             }
-            catch (WebException wex)
+            catch (Exception ex)
             {
-                if (((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    // validate token failed, need to refresh token
-                    Assert.IsNull(wex);
-                }
+                Assert.IsNull(ex);
+            }
+        }
+        [TestMethod]
+        public void CanGetStudentByStatetestnumber()
+        {
+            try
+            {
+                var responseData = GetStudentByStatetestnumber();
+
+                Assert.IsNotNull(responseData);
+                Assert.IsTrue(responseData.Done);
+                Assert.IsInstanceOfType(responseData.Data, typeof(IEnumerable<ChildInfo>));
+                Assert.IsTrue(responseData.Data.Count == 1);
+
             }
             catch (Exception ex)
             {
@@ -64,6 +68,23 @@ namespace PCG.GOAL.WebService.Test.WebClient
             }
         }
 
+        [TestMethod]
+        public void CanGetAllStudents()
+        {
+            try
+            {
+                var responseData = GetAllStudents();
+
+                Assert.IsNotNull(responseData);
+                Assert.IsTrue(responseData.Done);
+                Assert.IsInstanceOfType(responseData.Data, typeof(IEnumerable<ChildInfo>));
+
+            }
+            catch (Exception ex)
+            {
+                Assert.IsNull(ex);
+            }
+        }
         [TestMethod]
         public void CanGetToken()
         {
@@ -94,7 +115,20 @@ namespace PCG.GOAL.WebService.Test.WebClient
             }
         }
 
-        private Token GetToken()
+        public ResponseData<ChildInfo> GetAllStudents()
+        {
+            return GetStudentsByEndpoint(BaseUrl + EndpointAllStudents);
+        }
+        public ResponseData<ChildInfo> GetStudentByIdentity()
+        {
+            return GetStudentsByEndpoint(BaseUrl + EndpointStudentByIdentity);
+        }
+
+        public ResponseData<ChildInfo> GetStudentByStatetestnumber()
+        {
+            return GetStudentsByEndpoint(BaseUrl + EndpointStudentByStatetestnumber);
+        }
+        public Token GetToken()
         {
             // web client
             var client = new System.Net.WebClient();
@@ -103,16 +137,15 @@ namespace PCG.GOAL.WebService.Test.WebClient
             // invoke the REST method
             client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
             string credentials = Convert.ToBase64String(
-                Encoding.ASCII.GetBytes(string.Format("{0}:{1}", ClientId, ClientSecret)));
+                Encoding.ASCII.GetBytes(string.Format("{0}:{1}", _credentials.ClientId, _credentials.ClientSecret)));
 
 
             client.Headers[HttpRequestHeader.Authorization] = string.Format("Basic {0}", credentials);
             var postVaules = new NameValueCollection
             {
-                {"username", "admin"},
-                {"password", "admin"},
-                {"grant_type", "password"},
-                {"refresh_token", ""}
+                {"username",_credentials.Username},
+                {"password", _credentials.Password},
+                {"grant_type", GrantTpype.Password}
             };
             try
             {
@@ -130,13 +163,13 @@ namespace PCG.GOAL.WebService.Test.WebClient
             }
             return null;
         }
-        private Token RefreshToken(Token token = null)
+        public Token RefreshToken(Token token = null)
         {
             if (token == null)
             {
                 token = GetToken();
             }
-            if (token == null||string.IsNullOrWhiteSpace(token.Refresh_Token))
+            if (token == null || string.IsNullOrWhiteSpace(token.Refresh_Token))
             {
                 return null;
             }
@@ -147,13 +180,13 @@ namespace PCG.GOAL.WebService.Test.WebClient
             // add headers
             client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
             string credentials = Convert.ToBase64String(
-                Encoding.ASCII.GetBytes(string.Format("{0}:{1}", ClientId, ClientSecret)));
+                Encoding.ASCII.GetBytes(string.Format("{0}:{1}", _credentials.ClientId, _credentials.ClientSecret)));
             client.Headers[HttpRequestHeader.Authorization] = string.Format("Basic {0}", credentials);
 
             // refresh token request doesn't need "username" and "password"
             var postVaules = new NameValueCollection
             {
-                {"grant_type", "refresh_token"},
+                {"grant_type", GrantTpype.RefreshToken},
                 {"refresh_token", token.Refresh_Token}
             };
             try
@@ -172,6 +205,49 @@ namespace PCG.GOAL.WebService.Test.WebClient
             }
             return null;
         }
+
+        private ResponseData<ChildInfo> GetStudentsByEndpoint(string endpoint)
+        {
+            // web client
+            var client = new System.Net.WebClient();
+            client.Headers["Content-type"] = "application/json";
+            client.Headers[HttpRequestHeader.Authorization] = string.Format("Bearer {0}", _token.Access_Token);
+
+            try
+            {
+                return DownloadStudents(endpoint, client);
+            }
+            catch (WebException wex)
+            {
+                if (((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    // validate token failed, need to refresh token
+                    _token = RefreshToken(_token);
+                    client.Headers[HttpRequestHeader.Authorization] = string.Format("Bearer {0}", _token.Access_Token);
+                    return DownloadStudents(endpoint, client);;
+                }
+            }
+            return null;
+        }
+
+        private static ResponseData<ChildInfo> DownloadStudents(string endpoint, System.Net.WebClient client)
+        {
+            // invoke the REST method
+            var jsonData = client.DownloadString(endpoint);
+
+            var responseData = JsonConvert.DeserializeObject<ResponseData<ChildInfo>>(jsonData);
+            return responseData;
+        }
     }
 
+
+    public class OAuthAccess
+    {
+        public Credentials GetCredentials()
+        {
+            // todo: get credentials from db
+            var credentials = new Credentials { ClientId = "goalview", ClientSecret = "goalview", Username = "admin", Password = "admin" };
+            return credentials;
+        }
+    }
 }

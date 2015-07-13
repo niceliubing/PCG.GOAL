@@ -52,6 +52,7 @@
     <Compile Include="Models\LessonMasteryCriteria.cs" />
     <Compile Include="Models\LessonInfo.cs" />
     <Compile Include="Models\LessonObjective.cs" />
+    <Compile Include="WebAccess\GrantType.cs" />
     <Compile Include="WebAccess\ResponseData.cs" />
     <Compile Include="WebAccess\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
