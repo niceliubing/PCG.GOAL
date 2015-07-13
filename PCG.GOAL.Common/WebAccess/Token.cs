@@ -1,10 +1,16 @@
-﻿namespace PCG.GOAL.Common.WebAccess
+﻿using Newtonsoft.Json;
+
+namespace PCG.GOAL.Common.WebAccess
 {
     public class Token
     {
-        public string Access_Token { get; set; }
-        public string Token_Type { get; set; }
-        public string Refresh_Token { get; set; }
-        public string Expires_In { get; set; }
+        [JsonProperty("access_token")]
+        public string AccessToken { get; set; }
+        [JsonProperty("token_type")]
+        public string TokenType { get; set; }
+        [JsonProperty("refresh_token")]
+        public string RefreshToken { get; set; }
+        [JsonProperty("expires_in")]
+        public string ExpiresIn { get; set; }
     }
 }

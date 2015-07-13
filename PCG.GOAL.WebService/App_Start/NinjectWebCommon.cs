@@ -4,6 +4,7 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Web.Common;
+using PCG.GOAL.Common.WebAccess;
 using PCG.GOAL.ExternalDataService.Interface;
 using PCG.GOAL.ExternalDataService.Service;
 using PCG.GOAL.WebService;
@@ -73,6 +74,7 @@ namespace PCG.GOAL.WebService
             });
             kernel.Bind<IGoalService>().To<RethinkGoalService>();
             kernel.Bind(typeof(IWebServiceClient<>)).To(typeof(WebServiceClient<>));
+            kernel.Bind<IServiceConfig>().To<ServiceConfig>();
         }        
     }
 }

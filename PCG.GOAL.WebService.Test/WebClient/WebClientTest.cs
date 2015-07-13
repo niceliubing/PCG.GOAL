@@ -6,7 +6,6 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using PCG.GOAL.Common.Models;
-using PCG.GOAL.Common.Security;
 using PCG.GOAL.Common.WebAccess;
 
 namespace PCG.GOAL.WebService.Test.WebClient
@@ -169,7 +168,7 @@ namespace PCG.GOAL.WebService.Test.WebClient
             {
                 token = GetToken();
             }
-            if (token == null || string.IsNullOrWhiteSpace(token.Refresh_Token))
+            if (token == null || string.IsNullOrWhiteSpace(token.RefreshToken))
             {
                 return null;
             }
@@ -187,7 +186,7 @@ namespace PCG.GOAL.WebService.Test.WebClient
             var postVaules = new NameValueCollection
             {
                 {"grant_type", GrantTpype.RefreshToken},
-                {"refresh_token", token.Refresh_Token}
+                {"refresh_token", token.RefreshToken}
             };
             try
             {
@@ -211,7 +210,7 @@ namespace PCG.GOAL.WebService.Test.WebClient
             // web client
             var client = new System.Net.WebClient();
             client.Headers["Content-type"] = "application/json";
-            client.Headers[HttpRequestHeader.Authorization] = string.Format("Bearer {0}", _token.Access_Token);
+            client.Headers[HttpRequestHeader.Authorization] = string.Format("Bearer {0}", _token.AccessToken);
 
             try
             {
@@ -223,7 +222,7 @@ namespace PCG.GOAL.WebService.Test.WebClient
                 {
                     // validate token failed, need to refresh token
                     _token = RefreshToken(_token);
-                    client.Headers[HttpRequestHeader.Authorization] = string.Format("Bearer {0}", _token.Access_Token);
+                    client.Headers[HttpRequestHeader.Authorization] = string.Format("Bearer {0}", _token.AccessToken);
                     return DownloadStudents(endpoint, client);;
                 }
             }

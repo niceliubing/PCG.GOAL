@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PCG.GOAL.Common.Security;
 using PCG.GOAL.Common.WebAccess;
 
 namespace PCG.GOAL.ExternalDataService.Interface

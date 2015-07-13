@@ -65,6 +65,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Controllers\RethinkControllerTest.cs" />
+    <Compile Include="Service\RethinkGoalServiceTests.cs" />
     <Compile Include="WebClient\WebClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

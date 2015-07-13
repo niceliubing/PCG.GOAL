@@ -6,7 +6,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PCG.GOAL.Common.Security;
 using PCG.GOAL.Common.WebAccess;
 using PCG.GOAL.ExternalDataService.Interface;
 using PCG.GOAL.ExternalDataService.Model;
@@ -136,7 +135,6 @@ namespace PCG.GOAL.ExternalDataService.Service
 
             var postBody = records == null ? string.Empty : JsonConvert.SerializeObject(records);
             HttpContent requestContent = new StringContent(postBody, Encoding.UTF8, "application/json");
-            // HttpContent requestContent = new StringContent(postBody, Encoding.UTF8, "application/xml");
 
             var responseData = new ResponseData<T>
             {
@@ -233,26 +231,7 @@ namespace PCG.GOAL.ExternalDataService.Service
             return responseData;
         }
 
-        public T GetLastRecord(string token)
-        {
-            var actionData = GetAsync(token);
-
-            try
-            {
-                var records = JsonConvert.DeserializeObject<IEnumerable<T>>(actionData.ToString()).ToList();
-                if (!records.Any())
-                {
-                    return null;
-                }
-                var lastOne = records.Last();
-                return lastOne;
-
-            }
-            catch (Exception exception)
-            {
-                return null;
-            }
-        }
+      
         #endregion
 
         #region Private Helper Methods

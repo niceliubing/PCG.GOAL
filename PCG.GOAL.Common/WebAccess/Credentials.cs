@@ -1,4 +1,4 @@
-﻿namespace PCG.GOAL.Common.Security
+﻿namespace PCG.GOAL.Common.WebAccess
 {
     public class Credentials
     {
