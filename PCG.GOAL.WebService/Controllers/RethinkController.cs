@@ -3,8 +3,8 @@ using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Http;
 using PCG.GOAL.Common.Models;
-using PCG.GOAL.Common.WebAccess;
 using PCG.GOAL.ExternalDataService.Interface;
+using PCG.GOAL.ExternalDataService.Model;
 using PCG.GOAL.WebService.Security;
 
 namespace PCG.GOAL.WebService.Controllers
@@ -17,14 +17,17 @@ namespace PCG.GOAL.WebService.Controllers
         public RethinkController(IGoalService rethinkService)
         {
             _rethinkService = rethinkService;
-            _rethinkService.ServiceConfig = SetServiceConfig();
+            if (_rethinkService.ServiceConfig == null)
+            {
+                _rethinkService.ServiceConfig = SetServiceConfig();
+            }
         }
 
         [Route("api/rethink/student")]
         [HttpGet]
         public async Task<ResponseData<ChildInfo>> Get()
         {
-            return await _rethinkService.GetAllChildrenAsync();
+            return await _rethinkService.GetAllStudentsAsync();
         }
 
 
@@ -32,17 +35,17 @@ namespace PCG.GOAL.WebService.Controllers
         [HttpGet]
         public async Task<ResponseData<ChildInfo>> GetByStateTestNumber(string statetestnumber)
         {
-            return await _rethinkService.GetAllChildByStateNumberAsync(statetestnumber);
+            return await _rethinkService.GetStudentByStateNumberAsync(statetestnumber);
         }
 
         [Route("api/rethink/StudentByIdentity")]
         [HttpGet]
         public async Task<ResponseData<ChildInfo>> GetByIdentity(string firstName, string lastName, string dob)
         {
-            return await _rethinkService.GetAllChildByIdentityAsync(firstName, lastName, dob);
+            return await _rethinkService.GetStudentByIdentityAsync(firstName, lastName, dob);
         }
 
-        public ServiceConfig SetServiceConfig()
+        private ServiceConfig SetServiceConfig()
         {
             var serviceConfig = new ServiceConfig
             {

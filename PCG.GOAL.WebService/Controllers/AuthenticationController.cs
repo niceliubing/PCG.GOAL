@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using DataAccess.Common.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using PCG.GOAL.Common.WebAccess;
+using PCG.GOAL.ExternalDataService.Model;
 using PCG.GOAL.WebService.Models;
 
 namespace PCG.GOAL.WebService.Controllers

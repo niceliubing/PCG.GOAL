@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
-using PCG.GOAL.Common.WebAccess;
+using PCG.GOAL.ExternalDataService.Model;
 
 namespace PCG.GOAL.ExternalDataService.Interface
 {
@@ -8,22 +10,15 @@ namespace PCG.GOAL.ExternalDataService.Interface
     {
         Credentials Credentials { get; set; }
 
-        /// <summary>
-        /// Example: http://localhost:55435;
-        /// </summary>
-        /// 
         string BaseUri { get; set; }
 
-        /// <summary>
-        /// Example: "token"
-        /// </summary>
         string TokenEndpoint { get; set; }
 
-        /// <summary>
-        /// Example: "api/student","api/student/5","api/student?id=5"
-        /// </summary>
         string ServiceEndpoint { get; set; }
+        Func<Credentials> SetCredentials { get; set; }
         bool IsSingleResult { get; set; }
+        IClient HttpClient { get; set; }
+        IContent ResponseContent { get; set; }
 
         string GetToken();
         Task<ResponseData<T>> GetAsync(string token = null);

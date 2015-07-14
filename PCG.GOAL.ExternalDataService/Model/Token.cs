@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PCG.GOAL.Common.WebAccess
+namespace PCG.GOAL.ExternalDataService.Model
 {
     public class Token
     {

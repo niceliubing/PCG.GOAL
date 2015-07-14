@@ -6,13 +6,14 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using PCG.GOAL.Common.Models;
-using PCG.GOAL.Common.WebAccess;
+using PCG.GOAL.ExternalDataService.Model;
 
 namespace PCG.GOAL.WebService.Test.WebClient
 {
     [TestClass]
     public class WebClientTest
     {
+        private const string TokenType = "Bearer";
         const string BaseUrl = "http://goalservice.azurewebsites.net";
         const string TokenUrl = BaseUrl + "/token";
         const string EndpointAllStudents = "/api/rethink/Student";
@@ -210,7 +211,7 @@ namespace PCG.GOAL.WebService.Test.WebClient
             // web client
             var client = new System.Net.WebClient();
             client.Headers["Content-type"] = "application/json";
-            client.Headers[HttpRequestHeader.Authorization] = string.Format("Bearer {0}", _token.AccessToken);
+            client.Headers[HttpRequestHeader.Authorization] = string.Format("{0} {1}",TokenType, _token.AccessToken);
 
             try
             {
@@ -222,7 +223,7 @@ namespace PCG.GOAL.WebService.Test.WebClient
                 {
                     // validate token failed, need to refresh token
                     _token = RefreshToken(_token);
-                    client.Headers[HttpRequestHeader.Authorization] = string.Format("Bearer {0}", _token.AccessToken);
+                    client.Headers[HttpRequestHeader.Authorization] = string.Format("{0} {1}", TokenType, _token.AccessToken);
                     return DownloadStudents(endpoint, client);;
                 }
             }

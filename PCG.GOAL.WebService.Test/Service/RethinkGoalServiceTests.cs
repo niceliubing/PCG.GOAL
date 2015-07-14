@@ -2,8 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PCG.GOAL.Common.Models;
-using PCG.GOAL.Common.WebAccess;
 using PCG.GOAL.ExternalDataService.Interface;
+using PCG.GOAL.ExternalDataService.Model;
 using PCG.GOAL.ExternalDataService.Service;
 
 namespace PCG.GOAL.WebService.Test.Service
@@ -27,7 +27,7 @@ namespace PCG.GOAL.WebService.Test.Service
         public void GetAllChildrenAsyncTest()
         {
             // Act
-            var responsData = GoalService.GetAllChildrenAsync();
+            var responsData = GoalService.GetAllStudentsAsync();
 
             // Assert
             ApiClientMock.Verify(x=>x.GetAsync(null));
@@ -39,7 +39,7 @@ namespace PCG.GOAL.WebService.Test.Service
         public void GetAllChildByStateNumberAsyncTest()
         {
             // Act
-            var responsData = GoalService.GetAllChildByStateNumberAsync(stateTestNumber:"");
+            var responsData = GoalService.GetStudentByStateNumberAsync(stateTestNumber:"");
 
             // Assert
             ApiClientMock.Verify(x => x.GetAsync(null));
@@ -50,7 +50,7 @@ namespace PCG.GOAL.WebService.Test.Service
         public void GetAllChildByIdentityAsyncTest()
         {
             // Act
-            var responsData = GoalService.GetAllChildByIdentityAsync(firstName:"",lastName:"",dob:"");
+            var responsData = GoalService.GetStudentByIdentityAsync(firstName:"",lastName:"",dob:"");
 
             // Assert
             ApiClientMock.Verify(x => x.GetAsync(null));

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PCG.GOAL.Common.Models;
-using PCG.GOAL.Common.WebAccess;
+using PCG.GOAL.ExternalDataService.Model;
 
 namespace PCG.GOAL.ExternalDataService.Interface
 {
@@ -10,8 +10,8 @@ namespace PCG.GOAL.ExternalDataService.Interface
         Credentials Credentials { get; set; }
         IServiceConfig ServiceConfig { get; set; }
 
-        Task<ResponseData<ChildInfo>> GetAllChildrenAsync();
-        Task<ResponseData<ChildInfo>> GetAllChildByStateNumberAsync(string stateTestNumber);
-        Task<ResponseData<ChildInfo>> GetAllChildByIdentityAsync(string firstName, string lastName, string dob);
+        Task<ResponseData<ChildInfo>> GetAllStudentsAsync();
+        Task<ResponseData<ChildInfo>> GetStudentByStateNumberAsync(string stateTestNumber);
+        Task<ResponseData<ChildInfo>> GetStudentByIdentityAsync(string firstName, string lastName, string dob);
     }
 }

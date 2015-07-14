@@ -1,4 +1,4 @@
-﻿namespace PCG.GOAL.Common.WebAccess
+﻿namespace PCG.GOAL.ExternalDataService.Model
 {
     public class Credentials
     {

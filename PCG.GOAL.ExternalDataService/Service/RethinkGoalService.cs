@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Configuration;
 using System.Threading.Tasks;
 using PCG.GOAL.Common.Models;
-using PCG.GOAL.Common.WebAccess;
 using PCG.GOAL.ExternalDataService.Interface;
+using PCG.GOAL.ExternalDataService.Model;
 
 namespace PCG.GOAL.ExternalDataService.Service
 {
@@ -19,7 +18,7 @@ namespace PCG.GOAL.ExternalDataService.Service
             _apiClient = apiClient;
         }
 
-        public async Task<ResponseData<ChildInfo>> GetAllChildrenAsync()
+        public async Task<ResponseData<ChildInfo>> GetAllStudentsAsync()
         {
             SetUrl();
             _apiClient.ServiceEndpoint = string.Format("{0}?apikey={1}", ServiceConfig.ServiceEndpoint, ServiceConfig.ApiKey);
@@ -28,7 +27,7 @@ namespace PCG.GOAL.ExternalDataService.Service
         }
 
 
-        public async Task<ResponseData<ChildInfo>> GetAllChildByStateNumberAsync(string stateTestNumber)
+        public async Task<ResponseData<ChildInfo>> GetStudentByStateNumberAsync(string stateTestNumber)
         {
             SetUrl();
             _apiClient.ServiceEndpoint = string.Format("{0}?apikey={1}&statetestnumber={2}",
@@ -38,9 +37,12 @@ namespace PCG.GOAL.ExternalDataService.Service
             return response;
         }
 
-        public async Task<ResponseData<ChildInfo>> GetAllChildByIdentityAsync(string firstName, string lastName, string dob)
+        public async Task<ResponseData<ChildInfo>> GetStudentByIdentityAsync(string firstName, string lastName, string dob)
         {
             SetUrl();
+            _apiClient.Credentials = new Credentials { Username = "admin", Password = "admin", ClientId = "goalview", ClientSecret = "goalview" };
+            _apiClient.TokenEndpoint = "/token";
+            _apiClient.GetToken();
             //Date of Birth should be passed in YYYYMMDD format
             _apiClient.ServiceEndpoint = string.Format("{0}?apikey={1}&firstname={2}&lastname={3}&dob={4}",
                 ServiceConfig.ServiceEndpoint, ServiceConfig.ApiKey, firstName, lastName, dob);
