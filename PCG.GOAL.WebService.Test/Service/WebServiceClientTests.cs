@@ -7,8 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
 using PCG.GOAL.Common.Models;
+using PCG.GOAL.Common.WebModels;
 using PCG.GOAL.ExternalDataService.Interface;
-using PCG.GOAL.ExternalDataService.Model;
 using PCG.GOAL.ExternalDataService.Service;
 
 namespace PCG.GOAL.WebService.Test.Service

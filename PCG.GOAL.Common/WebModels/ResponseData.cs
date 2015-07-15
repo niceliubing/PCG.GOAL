@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PCG.GOAL.ExternalDataService.Model
+namespace PCG.GOAL.Common.WebModels
 {
     public class ResponseData<T>
     {

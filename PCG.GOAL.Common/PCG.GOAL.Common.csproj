@@ -32,11 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\OAuthValidator.cs" />
+    <Compile Include="DataAccess\SqlDataAccess.cs" />
+    <Compile Include="DataAccess\DbService.cs" />
+    <Compile Include="Interface\IDbService.cs" />
+    <Compile Include="Interface\IOAuthValidator.cs" />
     <Compile Include="Models\BehaviorInfo.cs" />
     <Compile Include="Models\BehaviorMasteryCriteria.cs" />
     <Compile Include="Models\BehaviorObjective.cs" />
@@ -53,6 +63,13 @@
     <Compile Include="Models\LessonInfo.cs" />
     <Compile Include="Models\LessonObjective.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebModels\ClientInfo.cs" />
+    <Compile Include="WebModels\Credentials.cs" />
+    <Compile Include="WebModels\GrantType.cs" />
+    <Compile Include="WebModels\ResponseData.cs" />
+    <Compile Include="WebModels\ServiceActionType.cs" />
+    <Compile Include="WebModels\ServiceConfig.cs" />
+    <Compile Include="WebModels\Token.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

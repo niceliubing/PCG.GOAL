@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net.Http;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -25,7 +23,6 @@ namespace PCG.GOAL.WebService
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new GoalOAuthProvider(),
-                //AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 RefreshTokenProvider = new GoalRefreshTokenProvider(),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 AllowInsecureHttp = true

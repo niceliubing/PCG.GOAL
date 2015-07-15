@@ -6,8 +6,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using PCG.GOAL.Common.WebModels;
 using PCG.GOAL.ExternalDataService.Interface;
-using PCG.GOAL.ExternalDataService.Model;
 
 namespace PCG.GOAL.ExternalDataService.Service
 {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PCG.GOAL.ExternalDataService.Model
+namespace PCG.GOAL.Common.WebModels
 {
     public class Token
     {

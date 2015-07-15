@@ -3,8 +3,8 @@ using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Http;
 using PCG.GOAL.Common.Models;
+using PCG.GOAL.Common.WebModels;
 using PCG.GOAL.ExternalDataService.Interface;
-using PCG.GOAL.ExternalDataService.Model;
 using PCG.GOAL.WebService.Security;
 
 namespace PCG.GOAL.WebService.Controllers
@@ -49,17 +49,23 @@ namespace PCG.GOAL.WebService.Controllers
         {
             var serviceConfig = new ServiceConfig
             {
-                BaseUrl = ConfigurationManager.AppSettings["Rethink_BaseUrl"],
-                ServiceEndpoint = ConfigurationManager.AppSettings["Rethink_StudentEndpoint"],
-                ApiKey = ConfigurationManager.AppSettings["Rethink_ApiKey"]
+                BaseUrl = GetFromServiceConfig("Rethink_BaseUrl"),
+                ServiceEndpoint = GetFromServiceConfig("Rethink_StudentEndpoint"),
+                ApiKey = GetFromServiceConfig("Rethink_ApiKey")
             };
 
-            if (string.IsNullOrWhiteSpace(serviceConfig.BaseUrl) || string.IsNullOrWhiteSpace(serviceConfig.ApiKey) ||
-                string.IsNullOrWhiteSpace(serviceConfig.ServiceEndpoint))
+            return serviceConfig;
+        }
+
+        private string GetFromServiceConfig(string key)
+        {
+            // todo: Rethink service configuration might be read from database instead of from Web.config
+            var value =ConfigurationManager.AppSettings[key];
+            if (string.IsNullOrWhiteSpace(value))
             {
                 throw new Exception("Failed to read Rethink Service Configuration.");
             }
-            return serviceConfig;
+            return value;
         }
 
     }

@@ -4,8 +4,10 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Web.Common;
+using PCG.GOAL.Common.DataAccess;
+using PCG.GOAL.Common.Interface;
+using PCG.GOAL.Common.WebModels;
 using PCG.GOAL.ExternalDataService.Interface;
-using PCG.GOAL.ExternalDataService.Model;
 using PCG.GOAL.ExternalDataService.Service;
 using PCG.GOAL.WebService;
 
@@ -51,6 +53,7 @@ namespace PCG.GOAL.WebService
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+                WebApiApplication.Kernel = kernel;
                 return kernel;
             }
             catch
@@ -75,6 +78,8 @@ namespace PCG.GOAL.WebService
             kernel.Bind<IGoalService>().To<RethinkGoalService>();
             kernel.Bind(typeof(IWebServiceClient<>)).To(typeof(WebServiceClient<>));
             kernel.Bind<IServiceConfig>().To<ServiceConfig>();
+            kernel.Bind<IDbService>().To<DbService>();
+            kernel.Bind<IOAuthValidator>().To<OAuthValidator>();
         }        
     }
 }
