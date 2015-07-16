@@ -1,5 +1,6 @@
 ﻿
-var _goalServiceTest = _goalServiceTest || {token: {accessToken:'', refreshToken: '' } };
+var _goalServiceTest = _goalServiceTest || {};
+_goalServiceTest.token = { accessToken: '', refreshToken: '' };
 
 _goalServiceTest.showResult = function() {
 

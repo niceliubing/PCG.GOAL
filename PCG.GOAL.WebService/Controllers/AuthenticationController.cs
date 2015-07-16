@@ -4,7 +4,6 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using PCG.GOAL.Common.DataAccess;
 using PCG.GOAL.Common.Interface;
 using PCG.GOAL.Common.WebModels;
 using PCG.GOAL.WebService.Models;
