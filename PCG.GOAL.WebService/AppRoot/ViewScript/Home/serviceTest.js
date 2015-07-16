@@ -1,7 +1,8 @@
 ﻿
-var _goalServiceTest = _goalServiceTest || {token: {accessToken:'', refreshToken: '' } };
+var _goalServiceTest = _goalServiceTest || {};
+_goalServiceTest.token = { accessToken: '', refreshToken: '' };
 
-_goalServiceTest.showResult = function() {
+_goalServiceTest.showResult = function () {
 
     return {
         showToken: showToken,
@@ -38,7 +39,7 @@ _goalServiceTest.showResult = function() {
     }
 };
 
-_goalServiceTest.service = function() {
+_goalServiceTest.service = function () {
     var tokenRequestType = { request: 'password', refresh: 'refresh_token' };
 
     var showResult = _goalServiceTest.showResult();
@@ -165,7 +166,7 @@ _goalServiceTest.service = function() {
     }
 }
 
-_goalServiceTest.activate = function() {
+_goalServiceTest.activate = function () {
     var service = _goalServiceTest.service();
     $('#imgLoading').hide();
     $("#btnGetToken").on('click', service.getToken);
