@@ -47,8 +47,9 @@ namespace PCG.GOAL.WebService.Security
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            var credentials = Validator.ValidateUser(context.UserName, context.Password);
 
-            if (!Validator.ValidateUser(context.UserName, context.Password))
+            if (credentials == null)
             {
                 context.Rejected();
                 return;
@@ -57,6 +58,8 @@ namespace PCG.GOAL.WebService.Security
             // create identity
             var id = new ClaimsIdentity(context.Options.AuthenticationType);
             id.AddClaim(new Claim("sub", context.UserName));
+            id.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+            id.AddClaim(new Claim(ClaimTypes.Role,credentials.Role));
 
             // create metadata to pass on to refresh token provider
             var props = new AuthenticationProperties(new Dictionary<string, string>

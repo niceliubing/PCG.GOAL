@@ -1,0 +1,37 @@
+﻿
+
+<div ng-controller="appAdminCtrl" class="admin-tab">
+    <div ng-class="{animated:isFromEdit, fadeInRight:isFromEdit}">
+
+        <div class="row">
+
+            <div ng-include="'/AppRoot/admin/appEditShared.html'"></div>
+        </div>
+        <div class="row">
+            <div class="row center-block" style="margin-top: 20px;" ng-show="hasApp">
+                <div class="col-xs-12 col-sm-10 col-md-8 table-container">
+                    <table class="table table-striped table-bordered table-hover table-condensed">
+                        <tbody>
+                            <tr>
+                                <th>Client Id</th>
+                                <th>Description</th>
+                                <th></th>
+                            </tr>
+                            <tr ng-repeat="app in appList">
+                                <td>
+                                    <a ui-sref="clientAppEdit({id:app.id})">
+                                        {{app.clientId}}
+                                    </a>
+                                </td>
+                                <td>{{app.description}}</td>
+                                <td style="text-align: center; width: 110px;">
+                                    <a class="btn btn-primary btn-xs" ng-click="deleteApp(app.id)">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

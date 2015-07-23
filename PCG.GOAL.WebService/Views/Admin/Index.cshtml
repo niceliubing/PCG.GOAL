@@ -1,0 +1,25 @@
+﻿<script src="~/Scripts/angular.min.js"></script>
+<script src="~/AppRoot/Lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
+<script src="~/Scripts/angular-ui-router.min.js"></script>
+<script src="~/Scripts/toastr.min.js"></script>
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<link href="~/AppRoot/Stylesheets/Site.css" rel="stylesheet" />
+<script src="~/AppRoot/_App/app.js"></script>
+<script src="~/AppRoot/_App/config.route.js"></script>
+<script src="~/AppRoot/_App/data-context.js"></script>
+<script src="~/AppRoot/_App/services.js"></script>
+<script src="~/AppRoot/Admin/app-admin-ctrl.js"></script>
+<script src="~/AppRoot/Admin/user-admin-ctrl.js"></script>
+
+<div style="margin-top: 20px;" ng-app="webServices">
+    <div class="col-xs-12">
+        <div class="panel-body" style="height: 700px;">
+            <div class="wizard">
+                <a ui-sref="credentials" ui-sref-active="active">App User</a>
+                <a ui-sref="clientApp" ui-sref-active="active">App Client</a>
+            </div>
+            <div ui-view class="wizard-content"></div>
+        </div>
+        <div id="token" style="display: none;">@ViewBag.Token</div>
+    </div>
+</div>

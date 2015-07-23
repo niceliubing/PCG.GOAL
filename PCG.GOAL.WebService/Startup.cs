@@ -34,7 +34,9 @@ namespace PCG.GOAL.WebService
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Authentication/Login")
+                LoginPath = new PathString("/Authentication/Login"),
+                CookieHttpOnly = false,
+                
 
             });
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using PCG.GOAL.Common.Interface;
 using PCG.GOAL.Common.WebModels;
 
@@ -19,16 +20,27 @@ namespace PCG.GOAL.Common.DataAccess
             return (client != null && VerifyHashedPassword(client.ClientSecret, clientSecret));
 
         }
-        public bool ValidateUser(string username, string password)
+        public Credentials ValidateUser(string username, string password)
         {
             var credentials = _dbService.GetCredentials(username);
-            return (credentials != null && VerifyHashedPassword(credentials.Password, password));
+            if (credentials != null && VerifyHashedPassword(credentials.Password, password))
+            {
+                return credentials;
+            }
+            return null;
         }
 
         public bool VerifyHashedPassword(string hashedPassword, string password)
         {
             var passwordHasher = new PasswordHasher();
-            return passwordHasher.VerifyHashedPassword(hashedPassword, password)==PasswordVerificationResult.Success;
+            try
+            {
+                return passwordHasher.VerifyHashedPassword(hashedPassword, password)==PasswordVerificationResult.Success;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

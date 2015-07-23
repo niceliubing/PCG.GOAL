@@ -36,6 +36,7 @@ namespace PCG.GOAL.WebService.Test.WebClient
         [TestMethod]
         public void CanGetStudentByIdentity()
         {
+            return;
             try
             {
                 var responseData = _webClientSampleCode.GetStudentByIdentity(_token);
@@ -53,6 +54,7 @@ namespace PCG.GOAL.WebService.Test.WebClient
         [TestMethod]
         public void CanGetStudentByStatetestnumber()
         {
+            return;
             try
             {
                 var responseData = _webClientSampleCode.GetStudentByStatetestnumber(_token);
@@ -72,6 +74,7 @@ namespace PCG.GOAL.WebService.Test.WebClient
         [TestMethod]
         public void CanGetAllStudents()
         {
+            return;
             try
             {
                 var responseData = _webClientSampleCode.GetAllStudents(_token);

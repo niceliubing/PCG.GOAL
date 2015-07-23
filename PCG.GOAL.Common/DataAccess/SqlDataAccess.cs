@@ -4,16 +4,25 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using PCG.GOAL.Common.Interface;
 
 namespace PCG.GOAL.Common.DataAccess
 {
-
-    public class SqlDataAccess : IDisposable
+    public class SqlDataAccess :ISqlDataAccess, IDisposable
     {
+        private const string SqlConnectionKey = "SQLConn";
         public SqlDataAccess()
         {
-            this.Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLConn"].ToString());
+            try
+            {
+                Connection = new SqlConnection(ConfigurationManager.ConnectionStrings[SqlConnectionKey].ToString());
+            }
+            catch (Exception e)
+            {
+                throw new Exception(string.Format("Failed to read connection string '{0}'", SqlConnectionKey), e);
+            }
         }
+
         public SqlDataAccess(SqlConnection connection)
         {
             this.Connection = connection;
@@ -63,6 +72,28 @@ namespace PCG.GOAL.Common.DataAccess
             }
         }
 
+        public SqlDataReader GetReaderBySql(string sqlStatement,  bool closeConnection = true)
+        {
+            this.OpenConnection();
+
+            using (SqlCommand command = this.NewCommand(sqlStatement, CommandType.Text))
+            {
+                return closeConnection ? command.ExecuteReader(CommandBehavior.CloseConnection) : command.ExecuteReader();
+            }
+        }
+
+        public DataTable GetTableBySql(string sqlStatement, bool closeConnection = true)
+        {
+            this.OpenConnection();
+
+            using (SqlCommand command = NewCommand(sqlStatement, CommandType.Text))
+            {
+                var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+                var table = new DataTable();
+                table.Load(reader);
+                return table;
+            }
+        }
         public object GetScalar(string storedProcedureKey, List<SqlParameter> parameters, bool closeConnection = true)
         {
             this.OpenConnection();

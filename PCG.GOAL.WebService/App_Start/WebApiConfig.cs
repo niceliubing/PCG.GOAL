@@ -22,6 +22,8 @@ namespace PCG.GOAL.WebService
                 config = new HttpConfiguration();
             }
 
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();

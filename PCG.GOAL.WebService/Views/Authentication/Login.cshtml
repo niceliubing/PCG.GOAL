@@ -9,8 +9,10 @@
     <title>Goal Web Service</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/AppRoot/Stylesheets/Login.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <script src="~/AppRoot/ViewScript/Authentication/login.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
 </head>
 <body>
 
@@ -19,7 +21,6 @@
         <div class=" text-center login-screen">
             <div class="middle-box">
                 <div>
-
                     <h1 class="logo-name">
                         Welcome to <img src="~/AppRoot/Images/goalDark.png" />
                     </h1>
@@ -62,9 +63,9 @@
                     <a class="btn btn-sm btn-white btn-block">Create an account</a>-->
                 </form>
                 <p class="m-t">
-                    By PCG Education &copy; 2015
+                    By PCG Education &copy; 2015 @ViewBag.LoginFailed
                 </p>
-
+                <input type="hidden" id="loginFailed" value="@(ViewBag.LoginFailed)"/>
             </div>
         </div>
 

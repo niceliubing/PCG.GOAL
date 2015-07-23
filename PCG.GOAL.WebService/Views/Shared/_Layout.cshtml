@@ -26,9 +26,16 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" style="margin-top: 8px;">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Admin", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Logout", "Logout", "Authentication", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Admin", "Index", "Admin", new {area = ""}, null)</li>
+                    }
+                    <li>
+                        <div style="display: inline-block; padding: 15px;color:whitesmoke">
+                            Welcome <span style="color: wheat;font-weight: bold;">@User.Identity.Name</span> !
+                        </div></li>
+                    <li style=""><a href="/Authentication/Logout">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -41,7 +48,7 @@
         if (!window.atob) window.atob = $.base64.atob;
 
     </script>
-    <div class="container body-content">
+    <div class="container body-content" style="margin-bottom: 20px;">
         @RenderBody()
         <hr />
         <footer></footer>

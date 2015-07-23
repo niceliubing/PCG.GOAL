@@ -1,0 +1,30 @@
+﻿
+<div ng-controller="userAdminCtrl" class="admin-tab">
+
+    <div ng-include="'/AppRoot/admin/userEditShared.html'"></div>
+
+    <div class="row center-block" style="margin-top: 20px;" ng-show="hasUser">
+        <div class="col-xs-12 col-sm-10 col-md-7 table-container">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tbody>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Role</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="user in userList">
+                        <td>
+                            <a ui-sref="credentialsEdit({id:user.id})">
+                                {{user.username}}
+                            </a>
+                        </td>
+                        <td>{{user.role}}</td>
+                        <td style="text-align: center;width: 110px;">
+                            <a class="btn btn-primary btn-xs" ng-click="deleteUser(user.id)">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
