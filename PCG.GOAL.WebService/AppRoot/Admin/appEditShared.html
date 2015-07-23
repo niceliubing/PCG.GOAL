@@ -1,0 +1,50 @@
+﻿<div class="col-md-8">
+    <form class="form-horizontal admin-form" novalidate="novalidate" name="formApp" id="formApp">
+        <filedset>
+            <legend>{{title}}</legend>
+            <div class="form-group">
+                <label for="appName" class="col-xs-3 control-label">Client Id</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control input-sm" id="appName" name="appName"
+                           required ng-minlength="3"
+                           ng-model="app.clientId" placeholder="Application Client Id">
+                    <span class="help-block">
+                        <span ng-show="formApp.appName.$error.required">*</span>
+                        <span ng-show="formApp.appName.$error.minlength">at least 3 characters</span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="appSecret" class="col-xs-3 control-label">Client Secret</label>
+                <div class="col-xs-9">
+                    <input type="password" class="form-control input-sm" id="appSecret" name="appSecret"
+                           required ng-minlength="4" ng-model="app.clientSecret" placeholder="Application Client Secret">
+                    <span class="help-block">
+                        <span ng-show="formApp.appSecret.$error.required">*</span>
+                        <span ng-show="formApp.appSecret.$error.minlength">at least 4 characters</span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-xs-3 control-label">Description</label>
+                <div class="col-xs-9">
+                    <textarea class="form-control input-sm" rows="3" id="description" name="description"
+                              ng-model="app.description" placeholder="Description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-sm-9">
+                    <button class="btn btn-default" ng-click="backToAdmin()" ng-show="isEditMode">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Back
+                    </button>
+                    <button type="submit" class="btn btn-info" ng-disabled="formApp.$invalid" ng-click="saveApp(formApp)">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        Save
+                    </button>
+                </div>
+            </div>
+
+        </filedset>
+    </form>
+</div>

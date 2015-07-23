@@ -80,6 +80,7 @@ namespace PCG.GOAL.WebService
             kernel.Bind<IServiceConfig>().To<ServiceConfig>();
             kernel.Bind<IDbService>().To<DbService>();
             kernel.Bind<IOAuthValidator>().To<OAuthValidator>();
+            kernel.Bind<ISqlDataAccess>().To<SqlDataAccess>();
         }        
     }
 }

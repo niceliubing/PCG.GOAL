@@ -4,7 +4,6 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using PCG.GOAL.Common.DataAccess;
 using PCG.GOAL.Common.Interface;
 using PCG.GOAL.Common.WebModels;
 using PCG.GOAL.WebService.Models;
@@ -35,10 +34,11 @@ namespace PCG.GOAL.WebService.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_oAuthValidator.ValidateUser(input.Username, input.Password))
+                var credentials = _oAuthValidator.ValidateUser(input.Username, input.Password);
+                if (credentials != null)
                 {
                     var password = Crypto.HashPassword(input.Password);
-                    var user = new Credentials { Username = input.Username, Password = password, Role = "Admin" };
+                    var user = new Credentials { Username = input.Username, Password = password, Role = credentials.Role };
                     var identity = new ClaimsIdentity(new[] {
                             new Claim(ClaimTypes.Name, input.Username),
                             new Claim(ClaimTypes.Role, user.Role)
@@ -58,8 +58,8 @@ namespace PCG.GOAL.WebService.Controllers
                 }
                 ViewBag.LoginFailed = true;
             }
-
-            return RedirectToAction("login");
+            return View("Login");
+            //return RedirectToAction("login");
         }
 
         public ActionResult Logout()

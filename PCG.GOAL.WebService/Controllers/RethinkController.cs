@@ -17,10 +17,6 @@ namespace PCG.GOAL.WebService.Controllers
         public RethinkController(IGoalService rethinkService)
         {
             _rethinkService = rethinkService;
-            if (_rethinkService.ServiceConfig == null)
-            {
-                _rethinkService.ServiceConfig = SetServiceConfig();
-            }
         }
 
         [Route("api/rethink/student")]
@@ -29,7 +25,6 @@ namespace PCG.GOAL.WebService.Controllers
         {
             return await _rethinkService.GetAllStudentsAsync();
         }
-
 
         [Route("api/rethink/StudentByStatetestnumber")]
         [HttpGet]
@@ -45,28 +40,7 @@ namespace PCG.GOAL.WebService.Controllers
             return await _rethinkService.GetStudentByIdentityAsync(firstName, lastName, dob);
         }
 
-        private ServiceConfig SetServiceConfig()
-        {
-            var serviceConfig = new ServiceConfig
-            {
-                BaseUrl = GetFromServiceConfig("Rethink_BaseUrl"),
-                ServiceEndpoint = GetFromServiceConfig("Rethink_StudentEndpoint"),
-                ApiKey = GetFromServiceConfig("Rethink_ApiKey")
-            };
 
-            return serviceConfig;
-        }
-
-        private string GetFromServiceConfig(string key)
-        {
-            // todo: Rethink service configuration might be read from database instead of from Web.config
-            var value =ConfigurationManager.AppSettings[key];
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new Exception("Failed to read Rethink Service Configuration.");
-            }
-            return value;
-        }
 
     }
 }

@@ -1,0 +1,50 @@
+﻿
+<form class="form-horizontal admin-form" novalidate="novalidate" name="formUser" id="formUser">
+    <filedset>
+        <legend>{{title}}</legend>
+        <div class="form-group">
+            <label for="username" class="col-xs-2 control-label">Username</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control input-sm" id="username" name="username"
+                       required ng-minlength="4"
+                       ng-model="user.username" placeholder="Username">
+                <span class="help-block">
+                    <span ng-show="formUser.username.$error.required">*</span>
+                    <span ng-show="formUser.username.$error.minlength">at least 4 characters</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-xs-2 control-label">Password</label>
+            <div class="col-xs-10">
+                <input type="password" class="form-control input-sm" id="password" name="password"
+                       required ng-minlength="4" ng-model="user.password" placeholder="Password">
+                <span class="help-block">
+                    <span ng-show="formUser.password.$error.required">*</span>
+                    <span ng-show="formUser.password.$error.minlength">at least 4 characters</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-xs-2 control-label">Role</label>
+            <div class="col-xs-3 col-md-2">
+                <select class="form-control input-sm" ng-model="user.role">
+                    <option>User</option>
+                    <option>Admin</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-sm-10">
+                <button class="btn btn-default" ui-sref="credentials" ng-show="isEditMode">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Back
+                </button>
+                <button type="submit" class="btn btn-info" ng-disabled="formUser.$invalid" ng-click="saveUser(formUser)">
+                    <i class="glyphicon glyphicon-ok"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </filedset>
+</form>

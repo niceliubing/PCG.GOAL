@@ -12,14 +12,17 @@ namespace PCG.GOAL.WebService.Test.Service
     public class RethinkGoalServiceTests
     {
         public Mock<IWebServiceClient<ChildInfo>> ApiClientMock { get; set; }
+
+        private IServiceConfig _serviceConfig;
         public RethinkGoalService GoalService { get; set; }
 
         [TestInitialize]
         public void RethinkGoalServiceTest()
         {
+            _serviceConfig= new ServiceConfig{ApiKey = "key",BaseUrl = "http://base.com",ServiceEndpoint = "service",TokenEndpoint = "token"};
             ApiClientMock= new Mock<IWebServiceClient<ChildInfo>>();
             ApiClientMock.Setup(x => x.GetAsync(null)).Returns(GetResponse);
-            GoalService = new RethinkGoalService(ApiClientMock.Object);
+            GoalService = new RethinkGoalService(ApiClientMock.Object, _serviceConfig);
             GoalService.ServiceConfig=new ServiceConfig();
         }
 

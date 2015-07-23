@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Ninject;
-using PCG.GOAL.Common.DataAccess;
 using PCG.GOAL.Common.Interface;
 
 namespace PCG.GOAL.WebService.Security
@@ -25,8 +24,6 @@ namespace PCG.GOAL.WebService.Security
             try
             {
                 string clientId, clientSecret;
-                // TryGetBasicCredentials -- for Basic authentication credentials
-                // TryGetFormCredentials -- for Form encoded POST from the http request body
                 if (context.TryGetBasicCredentials(out clientId, out clientSecret) || context.TryGetFormCredentials(out clientId, out clientSecret))
                 {
                     if (Validator.ValidateClient(clientId, clientSecret))
@@ -44,21 +41,15 @@ namespace PCG.GOAL.WebService.Security
             {
                 context.SetError("Server error");
                 context.Rejected();
-                //LogHelper.GetLogger().Error("ValidateClientAuthentication", e);
             }
 
         }
 
-        /// <summary>
-        /// Called when a request to the Token endpoint arrives with a "grant_type" of "password".
-        /// if the request is validated, the middleware will issue a access token
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            var credentials = Validator.ValidateUser(context.UserName, context.Password);
 
-            if (!Validator.ValidateUser(context.UserName, context.Password))
+            if (credentials == null)
             {
                 context.Rejected();
                 return;
@@ -67,7 +58,8 @@ namespace PCG.GOAL.WebService.Security
             // create identity
             var id = new ClaimsIdentity(context.Options.AuthenticationType);
             id.AddClaim(new Claim("sub", context.UserName));
-            //id.AddClaim(new Claim("role", user.Role));
+            id.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+            id.AddClaim(new Claim(ClaimTypes.Role,credentials.Role));
 
             // create metadata to pass on to refresh token provider
             var props = new AuthenticationProperties(new Dictionary<string, string>
@@ -79,11 +71,6 @@ namespace PCG.GOAL.WebService.Security
             context.Validated(ticket);
         }
 
-        /// <summary>
-        /// Called when a request to the Token endpoint arrives with a "grant_type" of "refresh_token"
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
         public override async Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
         {
             var originalClient = context.Ticket.Properties.Dictionary["oauth:client_id"];
