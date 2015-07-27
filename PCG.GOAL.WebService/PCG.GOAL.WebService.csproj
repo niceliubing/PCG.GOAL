@@ -343,6 +343,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\toastr.scss" />
+    <None Include="Properties\PublishProfiles\goalservice - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\goalservice - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\goalservice - Web Deploy.pubxml">
       <SubType>Designer</SubType>
@@ -398,7 +399,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />
-    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

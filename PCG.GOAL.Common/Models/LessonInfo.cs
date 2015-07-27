@@ -8,7 +8,10 @@ namespace PCG.GOAL.Common.Models
         public string LessonCategory { get; set; }
         public string IsCore { get; set; }
         public string LessonSubCategory { get; set; }
+        public int IepGoalId { get; set; }
         public string IepGoal { get; set; }
+        public bool InCurrentPlan { get; set; }
+
         public string CommonStandard { get; set; }
         public string CommonStandardDescription { get; set; }
         public string CommonStandardRationale { get; set; }
